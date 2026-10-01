@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>オーダースーツ シミュレーター</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;background:#f5f5f5;color:#222}
+header{background:#171717;color:#fff;padding:18px 20px;position:sticky;top:0;z-index:5}
+header h1{margin:0;font-size:20px}
+.wrap{max-width:1100px;margin:0 auto;padding:20px}
+.grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+.card{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 10px #00000010;margin-bottom:16px}
+label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}
+input,select{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;font-size:15px}
+.options{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.opt{border:1px solid #ddd;border-radius:9px;padding:12px;cursor:pointer}
+.opt:hover{background:#fafafa}
+.opt input{width:auto;margin-right:8px}
+.price{font-size:30px;font-weight:800;margin:8px 0 16px}
+.line{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee}
+.line:last-child{border:0}
+.muted{color:#777;font-size:12px}
+.btn{width:100%;border:0;border-radius:9px;padding:12px;background:#171717;color:#fff;font-weight:700;cursor:pointer;margin-top:10px}
+.btn.secondary{background:#eee;color:#222}
+.notice{background:#f0f4ff;border:1px solid #d8e1ff;padding:10px;border-radius:8px;font-size:12px;margin-top:10px}
+@media(max-width:800px){
+  .grid{grid-template-columns:1fr}
+  .options{grid-template-columns:1fr}
+  .wrap{padding:12px}
+  .card{padding:14px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap" style="padding:0">
+    <h1>オーダースーツ シミュレーター</h1>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+    <main>
+      <div class="card">
+        <h2>1着目：生地・オプション価格を入力</h2>
+        <label for="manualPrice1">生地価格（円）</label>
+        <input id="manualPrice1" type="number" min="0" step="100" value="" placeholder="例：30000">
+        <label for="optionPrice1">オプション価格（円）</label>
+        <input id="optionPrice1" type="number" min="0" step="100" value="" placeholder="例：5000">
+      </div>
+
+      <div class="card">
+        <h2>1着目：仕様</h2>
+        <label>ベスト</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="vest1" value="0" checked>なし</label>
+          <label class="opt"><input type="radio" name="vest1" value="1">ベスト付き</label>
+        </div>
+        <label>パンツ</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="pants1" value="1" checked>1パンツ</label>
+          <label class="opt"><input type="radio" name="pants1" value="2">2パンツ</label>
+        </div>
+        <label>ジャケット</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="double1" value="0" checked>シングル</label>
+          <label class="opt"><input type="radio" name="double1" value="1">Wジャケット</label>
+        </div>
+        <div class="notice">
+          ベスト・2パンツ：生地価格の35%プラス。計算後、500円単位に切り上げます（500円ちょうどはそのまま）。<br>
+          Wジャケット：生地価格＋5,000円。<br>
+          オプション価格：入力した金額をそのまま加算します。
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>2着目：生地・オプション価格を入力</h2>
+        <label for="manualPrice2">生地価格（円）</label>
+        <input id="manualPrice2" type="number" min="0" step="100" value="" placeholder="例：30000">
+        <label for="optionPrice2">オプション価格（円）</label>
+        <input id="optionPrice2" type="number" min="0" step="100" value="" placeholder="例：5000">
+      </div>
+
+      <div class="card">
+        <h2>2着目：仕様</h2>
+        <label>ベスト</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="vest2" value="0" checked>なし</label>
+          <label class="opt"><input type="radio" name="vest2" value="1">ベスト付き</label>
+        </div>
+        <label>パンツ</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="pants2" value="1" checked>1パンツ</label>
+          <label class="opt"><input type="radio" name="pants2" value="2">2パンツ</label>
+        </div>
+        <label>ジャケット</label>
+        <div class="options">
+          <label class="opt"><input type="radio" name="double2" value="0" checked>シングル</label>
+          <label class="opt"><input type="radio" name="double2" value="1">Wジャケット</label>
+        </div>
+        <div class="notice">
+          ベスト・2パンツ：生地価格の35%プラス。計算後、500円単位に切り上げます（500円ちょうどはそのまま）。<br>
+          Wジャケット：生地価格＋5,000円。<br>
+          オプション価格：入力した金額をそのまま加算します。
+        </div>
+      </div>
+    </main>
+
+    <aside>
+      <div class="card">
+        <h2>1着目 見積り</h2>
+        <div class="muted" id="selected1">生地未選択</div>
+        <div class="price" id="total1">¥0</div>
+        <div class="muted" id="pantsSingle1">パンツ単品価格：¥0</div>
+        <div class="muted" id="jacket1">ジャケット単品価格：¥0</div>
+        <div class="muted" id="tax1">税込価格（10%）：¥0</div>
+        <div id="breakdown1"></div>
+      </div>
+
+      <div class="card">
+        <h2>2着目 見積り</h2>
+        <div class="muted" id="selected2">生地未選択</div>
+        <div class="price" id="total2">¥0</div>
+        <div class="muted" id="pantsSingle2">パンツ単品価格：¥0</div>
+        <div class="muted" id="jacket2">ジャケット単品価格：¥0</div>
+        <div class="muted" id="tax2">税込価格（10%）：¥0</div>
+        <div id="breakdown2"></div>
+      </div>
+
+      <div class="card">
+        <h2>2着見積額</h2>
+        <div id="breakdownAll"></div>
+        <div class="price" id="grandTotal">¥0</div>
+        <div class="muted" id="grandTax">税込価格（10%）：¥0</div>
+        <button class="btn" onclick="copyEstimate()">見積りをコピー</button>
+        <button class="btn secondary" onclick="resetAll()">リセット</button>
+      </div>
+    </aside>
+  </div>
+</div>
+<script>
+function yen(n){ return "¥" + Math.round(n).toLocaleString("ja-JP"); }
+function ceil500(n){ return Math.ceil(n / 500) * 500; }
+
+function getSuitValues(i){
+  const base = Number(document.getElementById("manualPrice"+i).value) || 0;
+  const option = Number(document.getElementById("optionPrice"+i).value) || 0;
+  const vest = +document.querySelector('input[name="vest'+i+'"]:checked').value;
+  const pants = +document.querySelector('input[name="pants'+i+'"]:checked').value;
+  const dbl = +document.querySelector('input[name="double'+i+'"]:checked').value;
+  const vestAdd = vest ? ceil500(base * 0.35) : 0;
+  const pantsAdd = pants === 2 ? ceil500(base * 0.35) : 0;
+  const doubleAdd = dbl ? 5000 : 0;
+  const total = base + option + vestAdd + pantsAdd + doubleAdd;
+  const jacket = base * 0.75;
+  const pantsSingle = base * 0.35;
+  return {base, option, vestAdd, pantsAdd, doubleAdd, total, jacket, pantsSingle, tax: total*1.10};
+}
+
+function setBreakdown(id,v){
+  document.getElementById("breakdown"+id).innerHTML =
+    '<div class="line"><span>生地価格</span><b>'+yen(v.base)+'</b></div>'+
+    '<div class="line"><span>オプション</span><b>+'+yen(v.option)+'</b></div>'+
+    '<div class="line"><span>ベスト</span><b>+'+yen(v.vestAdd)+'</b></div>'+
+    '<div class="line"><span>2パンツ</span><b>+'+yen(v.pantsAdd)+'</b></div>'+
+    '<div class="line"><span>Wジャケット</span><b>+'+yen(v.doubleAdd)+'</b></div>'+
+    '<div class="line" style="font-size:17px"><span>合計</span><b>'+yen(v.total)+'</b></div>';
+}
+
+function update(){
+  const a=getSuitValues(1), b=getSuitValues(2);
+  [1,2].forEach((id)=>{
+    const v=id===1?a:b;
+    document.getElementById("selected"+id).textContent =
+      v.base>0 ? "入力価格："+yen(v.base) : "生地未選択";
+    document.getElementById("total"+id).textContent=yen(v.total);
+    document.getElementById("pantsSingle"+id).textContent="パンツ単品価格："+yen(v.pantsSingle);
+    document.getElementById("jacket"+id).textContent="ジャケット単品価格："+yen(v.jacket);
+    document.getElementById("tax"+id).textContent="税込価格（10%）："+yen(v.tax);
+    setBreakdown(id,v);
+  });
+
+  const total=a.total+b.total;
+  const tax=total*1.10;
+  const jacket=a.jacket+b.jacket;
+  document.getElementById("grandTotal").textContent=yen(total);
+  document.getElementById("grandTax").textContent="税込価格（10%）："+yen(tax);
+  document.getElementById("breakdownAll").innerHTML=
+    '<div class="line"><span>1着目 見積額</span><b>'+yen(a.total)+'</b></div>'+
+    '<div class="line"><span>2着目 見積額</span><b>'+yen(b.total)+'</b></div>'+
+    '<div class="line"><span>2着合計（税抜）</span><b>'+yen(total)+'</b></div>'+
+    '<div class="line"><span>消費税10%</span><b>'+yen(total*0.10)+'</b></div>';
+}
+
+function copyEstimate(){
+  const a=getSuitValues(1), b=getSuitValues(2);
+  if(a.base<=0 && a.option<=0 && b.base<=0 && b.option<=0){
+    alert("1着目または2着目の価格を入力してください"); return;
+  }
+  const txt=`オーダースーツ見積り
+【1着目】
+生地価格：${yen(a.base)}
+オプション：+${yen(a.option)}
+ベスト：+${yen(a.vestAdd)}
+2パンツ：+${yen(a.pantsAdd)}
+Wジャケット：+${yen(a.doubleAdd)}
+見積額：${yen(a.total)}
+ジャケット単品価格：${yen(a.jacket)}
+税込価格：${yen(a.tax)}
+
+【2着目】
+生地価格：${yen(b.base)}
+オプション：+${yen(b.option)}
+ベスト：+${yen(b.vestAdd)}
+2パンツ：+${yen(b.pantsAdd)}
+Wジャケット：+${yen(b.doubleAdd)}
+見積額：${yen(b.total)}
+ジャケット単品価格：${yen(b.jacket)}
+税込価格：${yen(b.tax)}
+
+【2着見積額】
+1着目：${yen(a.total)}
+2着目：${yen(b.total)}
+合計：${yen(a.total+b.total)}
+税込価格：${yen((a.total+b.total)*1.10)}`;
+  navigator.clipboard?.writeText(txt).then(()=>alert("コピーしました")).catch(()=>alert(txt));
+}
+
+function resetAll(){
+  [1,2].forEach(i=>{
+    document.getElementById("manualPrice"+i).value="";
+    document.getElementById("optionPrice"+i).value="";
+    document.querySelector('input[name="vest'+i+'"][value="0"]').checked=true;
+    document.querySelector('input[name="pants'+i+'"][value="1"]').checked=true;
+    document.querySelector('input[name="double'+i+'"][value="0"]').checked=true;
+  });
+  update();
+}
+
+document.querySelectorAll("input[type=radio]").forEach(x=>x.addEventListener("change",update));
+["manualPrice1","optionPrice1","manualPrice2","optionPrice2"].forEach(id=>document.getElementById(id).addEventListener("input",update));
+update();
+</script>
+</body>
+</html>
