@@ -49,6 +49,7 @@ input,select{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;fon
         <input id="manualPrice1" type="number" min="0" step="100" value="" placeholder="例：30000">
         <label for="optionPrice1">オプション価格（円）</label>
         <input id="optionPrice1" type="number" min="0" step="100" value="" placeholder="例：5000">
+  
       </div>
 
       <div class="card">
@@ -67,14 +68,25 @@ input,select{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;fon
         <div class="options">
           <label class="opt"><input type="radio" name="double1" value="0" checked>シングル</label>
           <label class="opt"><input type="radio" name="double1" value="1">Wジャケット</label>
+     
+        </div>
+ <div class="card">
+        <h2>1着目 見積り</h2>
+        <div class="muted" id="selected1">生地未選択</div>
+        <div class="price" id="total1">¥0</div>
+        <div class="muted" id="pantsSingle1">パンツ単品価格：¥0</div>
+        <div class="muted" id="jacket1">ジャケット単品価格：¥0</div>
+        <div class="muted" id="tax1">税込価格（10%）：¥0</div>
+        <div id="breakdown1"></div>
       </div>
-
-      <div class="card">
+     
+  <div class="card">
         <h2>2着目：価格を入力</h2>
         <label for="manualPrice2">生地価格（円）</label>
         <input id="manualPrice2" type="number" min="0" step="100" value="" placeholder="例：30000">
         <label for="optionPrice2">オプション価格（円）</label>
         <input id="optionPrice2" type="number" min="0" step="100" value="" placeholder="例：5000">
+     
       </div>
 
       <div class="card">
@@ -99,17 +111,7 @@ input,select{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;fon
       </div>
     </main>
 
-    <aside>
-      <div class="card">
-        <h2>1着目 見積り</h2>
-        <div class="muted" id="selected1">生地未選択</div>
-        <div class="price" id="total1">¥0</div>
-        <div class="muted" id="pantsSingle1">パンツ単品価格：¥0</div>
-        <div class="muted" id="jacket1">ジャケット単品価格：¥0</div>
-        <div class="muted" id="tax1">税込価格（10%）：¥0</div>
-        <div id="breakdown1"></div>
-      </div>
-
+    
       <div class="card">
         <h2>2着目 見積り</h2>
         <div class="muted" id="selected2">生地未選択</div>
