@@ -148,8 +148,9 @@ function getSuitValues(i){
   const pantsAdd = pants === 2 ? ceil500(base * 0.35) : 0;
   const doubleAdd = dbl ? 5000 : 0;
   const total = base + option + vestAdd + pantsAdd + doubleAdd;
-  const jacket = base * 0.75;
-  const pantsSingle = base * 0.35;
+  const jacket = ceil500(base * 0.75);
+  const pantsSingle = ceil500(base * 0.35);
+  
   return {base, option, vestAdd, pantsAdd, doubleAdd, total, jacket, pantsSingle, tax: total*1.10};
 }
 
@@ -180,12 +181,11 @@ function update(){
   const tax=total*1.10;
   const jacket=a.jacket+b.jacket;
   document.getElementById("grandTotal").textContent=yen(total);
-  document.getElementById("grandTax").textContent="税込価格（10%）："+yen(tax);
+  document.getElementById("grandTax").textContent="税込価格："+yen(tax);
   document.getElementById("breakdownAll").innerHTML=
     '<div class="line"><span>1着目 見積額</span><b>'+yen(a.total)+'</b></div>'+
     '<div class="line"><span>2着目 見積額</span><b>'+yen(b.total)+'</b></div>'+
     '<div class="line"><span>2着合計（税抜）</span><b>'+yen(total)+'</b></div>'+
-    '<div class="line"><span>消費税10%</span><b>'+yen(total*0.10)+'</b></div>';
 }
 
 function copyEstimate(){
