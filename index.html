@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>オーダースーツ シミュレータ</title>
+<title>オーダースーツ シミュレーター</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP",sans-serif;background:#f5f5f5;color:#222}
@@ -36,7 +36,7 @@ input,select{width:100%;padding:11px;border:1px solid #ccc;border-radius:8px;fon
 <body>
 <header>
   <div class="wrap" style="padding:0">
-    <h1>オーダースーツ シミュレータ</h1>
+    <h1>オーダースーツ シミュレーター</h1>
   </div>
 </header>
 
@@ -149,9 +149,10 @@ function getSuitValues(i){
   const doubleAdd = dbl ? 5000 : 0;
   const total = base + option + vestAdd + pantsAdd + doubleAdd;
   const jacket = base * 0.75;
-const pantsSingle = base * 0.35;
+  const pantsSingle = base * 0.35;
   return {base, option, vestAdd, pantsAdd, doubleAdd, total, jacket, pantsSingle, tax: total*1.10};
 }
+
 function setBreakdown(id,v){
   document.getElementById("breakdown"+id).innerHTML =
     '<div class="line"><span>生地価格</span><b>'+yen(v.base)+'</b></div>'+
@@ -179,11 +180,12 @@ function update(){
   const tax=total*1.10;
   const jacket=a.jacket+b.jacket;
   document.getElementById("grandTotal").textContent=yen(total);
-  document.getElementById("grandTax").textContent="税込価格："+yen(tax);
+  document.getElementById("grandTax").textContent="税込価格（10%）："+yen(tax);
   document.getElementById("breakdownAll").innerHTML=
     '<div class="line"><span>1着目 見積額</span><b>'+yen(a.total)+'</b></div>'+
     '<div class="line"><span>2着目 見積額</span><b>'+yen(b.total)+'</b></div>'+
     '<div class="line"><span>2着合計（税抜）</span><b>'+yen(total)+'</b></div>'+
+    '<div class="line"><span>消費税10%</span><b>'+yen(total*0.10)+'</b></div>';
 }
 
 function copyEstimate(){
